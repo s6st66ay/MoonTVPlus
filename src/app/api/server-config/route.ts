@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
       StorageType: 'localstorage',
       Version: CURRENT_VERSION,
       WatchRoom: watchRoomConfig,
+      EnableOfflineDownload: process.env.NEXT_PUBLIC_ENABLE_OFFLINE_DOWNLOAD === 'true',
     });
   }
 
@@ -37,6 +38,7 @@ export async function GET(request: NextRequest) {
     StorageType: storageType,
     Version: CURRENT_VERSION,
     WatchRoom: watchRoomConfig,
+    EnableOfflineDownload: process.env.NEXT_PUBLIC_ENABLE_OFFLINE_DOWNLOAD === 'true',
     EnableRegistration: config.SiteConfig.EnableRegistration || false,
     RegistrationRequireTurnstile: config.SiteConfig.RegistrationRequireTurnstile || false,
     LoginRequireTurnstile: config.SiteConfig.LoginRequireTurnstile || false,

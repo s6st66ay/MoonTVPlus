@@ -78,7 +78,7 @@ function PlayPageClient() {
 
   // 离线下载功能配置
   const enableOfflineDownload = typeof window !== 'undefined'
-    ? process.env.NEXT_PUBLIC_ENABLE_OFFLINE_DOWNLOAD === 'true'
+    ? (window as any).RUNTIME_CONFIG?.ENABLE_OFFLINE_DOWNLOAD || false
     : false;
   const hasOfflinePermission = authInfo?.role === 'owner' || authInfo?.role === 'admin';
 
@@ -3471,8 +3471,8 @@ function PlayPageClient() {
               // 如果在 PWA 模式下，直接使用容器全屏（可以隐藏状态栏）
               if (isPWA) {
                 const container = artPlayerRef.current.template.$container;
-                if (container && container.requestFullscreen) {
-                  container.requestFullscreen().catch((err: Error) => {
+                if (container && container.webkitEnterFullscreen) {
+                  container.webkitEnterFullscreen().catch((err: Error) => {
                     console.error('PWA 全屏失败:', err);
                     // 如果失败，降级使用网页全屏
                     artPlayerRef.current.fullscreenWeb = true;
